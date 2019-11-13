@@ -8,9 +8,15 @@ class Cart extends React.Component {
     checkedOut: false
   }
 
+  addProductToOrder = () => {
+    
+  }
+
   render(){
 
-    return<h2> This is the CART </h2>
+    return <div className="containerdiv">
+      <h2> This is the CART </h2>
+    </div>
   }
 
 }

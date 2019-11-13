@@ -47,6 +47,7 @@ class App extends React.Component {
     })
     window.sessionStorage.setItem("token", data.jwt);
     history.push('/home');
+    this.createPendingOrder();
   }
 
   logOutUser = () => {
@@ -58,8 +59,43 @@ class App extends React.Component {
     this.props.history.push("/login");
   }
 
+  createPendingOrder(){
+    console.log(this.state)
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      headers: {
+        // Authorization: `Bearer ${window.sessionStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        order: {
+          user_id: this.state.user.user.id,
+          status: false,
+          date: null
+        }
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+  }
+
   componentDidMount(){
     console.log(this.state)
+  }
+
+  addToCart = (item) => {
+    console.log(item)
+    // fetch('http://localhost:3000/orders', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   },
+    //   body: {
+
+    //   }
+    // })
   }
 
   render(){
@@ -80,7 +116,9 @@ class App extends React.Component {
 
         <Route exact path="/signup" render={props => (<Signup { ...props } loginStatus={this.state.loginStatus} logInUser={this.logInUser}/>)} />
 
-        <Route path="/home" render={props => (<Container { ...props } loginStatus={this.state.loginStatus} />)}/>
+        <Route path="/home" render={props => (<Container { ...props } loginStatus={this.state.loginStatus} addToCart={this.addToCart}/>)}/>
+
+        <Route path="/cart" render={props => (<Cart { ...props } />)} />
 
         <Route path="/profile" render={props => (<UserProfile { ...props }/>)}/>
 

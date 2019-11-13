@@ -57,8 +57,6 @@ class Login extends React.Component {
       <section className="App container-fluid bg">
         <section className="row justify-content-center">
           <section className="col-12 col-sm-3 col-md-4">
-            <h1>THIS IS THE LOGIN PAGE</h1>
-            <h1>STATUS: {this.props.loginStatus}</h1>
             <Form className="authform login-form" onSubmit={this.logInSubmit}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -82,3 +80,5 @@ class Login extends React.Component {
   }
 }
 export default withRouter(Login)
+
+connect(null, mapDispatchToProps)(CreateTodo)
